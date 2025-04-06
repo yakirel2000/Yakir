@@ -141,9 +141,8 @@
             <h2>Main Dashboard 🌈</h2>
             <p>Explore our interactive Tableau visualization below! 🎉</p>
             <div class="tableau-container">
-                <!-- Replace with your actual Tableau Public embed link -->
                 <iframe 
-                    src="https://public.tableau.com/views/YOUR_TABLEAU_VIZ_URL"
+                    src="https://public.tableau.com/views/1_17425564078660/Dashboard1?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link"
                     allowfullscreen>
                 </iframe>
             </div>
