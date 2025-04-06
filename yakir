@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Analytics Hub 📊✨</title>
     <style>
-        /* CSS with Gradients and Animations */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -81,7 +80,7 @@
 
         .tableau-container {
             position: relative;
-            padding-bottom: 56.25%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
             height: 0;
             overflow: hidden;
             border-radius: 10px;
@@ -94,6 +93,7 @@
             left: 0;
             width: 100%;
             height: 100%;
+            border: none;
         }
 
         .stats-grid {
@@ -121,6 +121,12 @@
             background: rgba(0,0,0,0.2);
             margin-top: 20px;
         }
+
+        .error-message {
+            color: #ff6b6b;
+            text-align: center;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -142,10 +148,12 @@
             <p>Explore our interactive Tableau visualization below! 🎉</p>
             <div class="tableau-container">
                 <iframe 
-                    src="https://public.tableau.com/views/1_17425564078660/Dashboard1?:language=en-US&publish=yes&:sid=&:display_count=n&:origin=viz_share_link"
-                    allowfullscreen>
+                    src="https://public.tableau.com/views/1_17425564078660/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link"
+                    allowfullscreen
+                    id="tableau-iframe">
                 </iframe>
             </div>
+            <p class="error-message" id="iframe-error">Oops! Looks like the dashboard didn’t load. Check the link or try again later! 😅</p>
         </div>
 
         <div class="section" id="insights">
@@ -187,7 +195,7 @@
     </footer>
 
     <script>
-        // JavaScript for interactivity
+        // JavaScript for interactivity and iframe error handling
         document.addEventListener('DOMContentLoaded', () => {
             // Smooth scroll for nav links
             document.querySelectorAll('nav a').forEach(anchor => {
@@ -209,6 +217,25 @@
             }, { threshold: 0.1 });
 
             sections.forEach(section => observer.observe(section));
+
+            // Check if Tableau iframe loads
+            const iframe = document.getElementById('tableau-iframe');
+            const errorMessage = document.getElementById('iframe-error');
+
+            iframe.onload = () => {
+                errorMessage.style.display = 'none'; // Hide error if loaded
+            };
+
+            iframe.onerror = () => {
+                errorMessage.style.display = 'block'; // Show error if failed
+            };
+
+            // Fallback check after a timeout
+            setTimeout(() => {
+                if (!iframe.contentWindow || iframe.contentWindow.location.href === 'about:blank') {
+                    errorMessage.style.display = 'block';
+                }
+            }, 5000); // 5 seconds timeout
         });
     </script>
 </body>
